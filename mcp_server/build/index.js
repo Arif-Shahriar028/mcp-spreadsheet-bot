@@ -8,12 +8,13 @@ const server = serverInstance.getServer();
 const PORT = process.env.PORT;
 const app = express();
 app.post("/mcp", async (req, res) => {
+    console.log('------------>>>>>>> server hit');
     const transport = new StreamableHTTPServerTransport({
         sessionIdGenerator: undefined
     });
     try {
         await server.connect(transport);
-        const response = await transport.handleRequest(req, res);
+        await transport.handleRequest(req, res);
         // res.json(response);
     }
     catch (error) {

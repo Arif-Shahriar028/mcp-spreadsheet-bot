@@ -11,7 +11,7 @@ export class MCPServer {
     }
     initializeTools() {
         this.server.tool("google-spread-sheet-for-meal-management", "get spreadsheet data of meal entry and bazar or shopping management", {}, async () => {
-            const data = googleSheetFetcher();
+            const data = await googleSheetFetcher();
             return {
                 content: [
                     {
