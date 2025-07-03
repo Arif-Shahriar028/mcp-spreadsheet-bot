@@ -2,7 +2,6 @@ import express, { Request, Response } from 'express';
 import { MCPClient } from "./client/MCPClient.js";
 import dotenv from "dotenv";
 import cors from "cors"
-import { success } from 'zod/v4';
 dotenv.config();
 
 let client = new MCPClient();

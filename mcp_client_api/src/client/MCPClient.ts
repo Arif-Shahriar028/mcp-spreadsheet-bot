@@ -110,6 +110,8 @@ export class MCPClient {
       }
     }
 
+    console.log('responsse: ====>>> ', fullResponse);
+
     return fullResponse;
   }
 

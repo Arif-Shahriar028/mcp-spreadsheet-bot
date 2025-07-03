@@ -86,6 +86,7 @@ export class MCPClient {
                 onToken(content);
             }
         }
+        console.log('responsse: ====>>> ', fullResponse);
         return fullResponse;
     }
     // call tools 
