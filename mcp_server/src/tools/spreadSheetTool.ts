@@ -18,7 +18,7 @@ export const googleSheetFetcher = async () => {
 
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SPREADSHEET_ID, 
-    range: "June"
+    range: "July"
   });
 
   const values = res.data.values as string[][];
