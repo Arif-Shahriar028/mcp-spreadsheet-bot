@@ -128,4 +128,4 @@ dist
 !.yarn/sdks
 !.yarn/versions
 
-/spreadsheet-mcp-server.json
+spreadsheet-mcp-server.json
