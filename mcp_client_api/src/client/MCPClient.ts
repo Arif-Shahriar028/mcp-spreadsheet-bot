@@ -11,8 +11,9 @@ export class MCPClient {
   
   constructor(){
     this.openai = new OpenAI({
-      baseURL: "https://models.inference.ai.azure.com",
-      apiKey: process.env.GITHUB_TOKEN,
+      // baseURL: "https://models.inference.ai.azure.com",
+      baseURL: "https://api.openai.com/v1",
+      apiKey: process.env.OPEN_API_KEY,
     })
 
     this.client = new Client(
@@ -62,7 +63,7 @@ export class MCPClient {
 
     // calling llm
     let response = await this.openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-3.5-turbo",
       max_completion_tokens: 1000,
       messages,
       tools: tools

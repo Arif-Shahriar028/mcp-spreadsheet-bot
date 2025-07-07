@@ -11,7 +11,6 @@ const PORT = process.env.PORT;
 const app = express()
 
 app.post("/mcp", async (req: Request, res: Response) => {
-  console.log('------------>>>>>>> server hit');
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined
   });

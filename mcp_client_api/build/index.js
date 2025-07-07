@@ -8,12 +8,15 @@ client.connectToServer();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.post("/chat", async (req, res) => {
+app.get("/chat", async (req, res) => {
     try {
-        const { prompt } = req.body;
+        // const { prompt } = req.body;
+        const prompt = req.query.prompt;
         console.log("prompt: ", prompt);
-        if (!prompt)
+        if (!prompt) {
             res.status(400).json({ success: false, error: "bad request" });
+            return;
+        }
         // const response = await client.generateResponse(prompt, (token) => {
         //   console.log(" ", token);
         // });
@@ -29,6 +32,7 @@ app.post("/chat", async (req, res) => {
         res.end();
     }
     catch (error) {
+        console.log('error: ', error);
         res.status(500).json({ success: false, error });
     }
 });

@@ -13,12 +13,16 @@ app.use(cors());
 app.use(express.json());
 
 
-app.post("/chat", async (req: Request, res: Response): Promise<any> => {
+app.get("/chat", async (req: Request, res: Response): Promise<any> => {
   try{
-    const { prompt } = req.body;
+    // const { prompt } = req.body;
+    const prompt = req.query.prompt as string;
     console.log("prompt: ", prompt);
 
-    if(!prompt) res.status(400).json({success: false, error: "bad request"});
+    if(!prompt){
+      res.status(400).json({success: false, error: "bad request"});
+      return;
+    }
 
     // const response = await client.generateResponse(prompt, (token) => {
     //   console.log(" ", token);
@@ -37,6 +41,7 @@ app.post("/chat", async (req: Request, res: Response): Promise<any> => {
     res.write("data: [DONE]\n\n");
     res.end();
   }catch(error){
+    console.log('error: ', error);
     res.status(500).json({success: false, error});
   }
 });
