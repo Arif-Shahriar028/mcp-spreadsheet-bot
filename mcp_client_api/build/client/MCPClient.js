@@ -47,13 +47,14 @@ export class MCPClient {
                 content: prompt
             }
         ];
-        // calling llm
+        // calling llm for tools
         let response = await this.openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             max_completion_tokens: 1000,
             messages,
             tools: tools
         });
+        // tools call according to the llm response
         await Promise.all(response.choices.map(async (choice) => {
             const message = choice.message;
             if (message.tool_calls) {

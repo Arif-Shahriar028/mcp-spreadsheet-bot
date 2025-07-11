@@ -1,11 +1,27 @@
 import express, { Request, Response } from 'express';
-import { MCPClient } from "./client/MCPClient.js";
 import dotenv from "dotenv";
 import cors from "cors"
+import { McpClient } from './client/mcp_client.js';
+import { LlamaProvider } from './client/llm/providers/llamaProvider.js';
+import { OpenAIProvider } from './client/llm/providers/openAIProvider.js';
 dotenv.config();
 
-let client = new MCPClient();
-client.connectToServer();
+console.log('====>>>>> Selected model: ', process.argv[2]);
+
+let client;
+
+if(process.argv[2] === "llama"){
+  // initializing client with llama model
+  const llamaProvider = new LlamaProvider();
+  client = new McpClient(llamaProvider);
+  client.connectToServer();
+
+} else {
+  // initializing client with openai's model
+  const openAIProvider = new OpenAIProvider();
+  client = new McpClient(openAIProvider);
+  client.connectToServer();
+}
 
 const app = express();
 
@@ -35,6 +51,7 @@ app.get("/chat", async (req: Request, res: Response): Promise<any> => {
     res.flushHeaders();
 
     await client.generateResponse(prompt, (token) => {
+      console.log('data: ', token);
       res.write(`data: ${token}\n\n`);
     });
 

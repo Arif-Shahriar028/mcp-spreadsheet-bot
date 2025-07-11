@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && node ./build/index.js",
+    "llama": "tsc && node ./build/index.js llama",
+    "openai": "tsc && node ./build/index.js openai",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [

@@ -1,0 +1,1 @@
+export const llamaApi = "http://localhost:11434/api/chat"
