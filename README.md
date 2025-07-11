@@ -6,19 +6,38 @@
 2. [Technologies Used](#technologies-used)
    - [Model Context Protocol (MCP)](#model-context-protocol-mcp)
 3. [Project Structure](#project-structure)
-4. [Installation & Setup](#installation--setup)
+4. [Technologies](#technologies)
+   - [Core Stack](#core-stack)
+   - [AI & ML Integration](#ai--ml-integration)
+   - [Development Tools](#development-tools)
+5. [Installation](#installation)
+   - [Clone the Repository](#1-clone-the-repository)
+   - [Install Dependencies](#2-install-dependencies)
+6. [Configuration](#configuration)
+   - [Environment Setup](#environment-setup)
+     - [MCP Server Configuration](#mcp-server-configuration)
+     - [MCP Client API Configuration](#mcp-client-api-configuration)
+   - [Generating Required API Keys and Tokens](#generating-required-api-keys-and-tokens)
+     - [OpenAI API Key (OPEN_API_KEY)](#openai-api-key-open_api_key)
+     - [GitHub Personal Access Token (GITHUB_TOKEN)](#github-personal-access-token-github_token)
+7. [Running the project](#running-the-project)
    - [Interface](#interface)
-   - [mcp_client_api](#mcp_client_api)
    - [mcp_server](#mcp_server)
-5. [Usage](#usage)
-6. [Contributing](#contributing)
-7. [License](#license)
+   - [mcp_client_api](#mcp_client_api)
+8. [Usage](#usage)
+9. [Contributing](#contributing)
+10. [License](#license)
 
 ---
 
 ## About the Project
 
 **Spreadsheet MCP Bot** is a modular, extensible system for interacting with AI models and tools using the Model Context Protocol (MCP). It is designed to facilitate seamless communication between clients, servers, and various tools, enabling advanced AI-driven workflows such as meal planning, recipe suggestions, and more.
+
+> **⚠️ Disclaimer:**  
+> This project is designed to read spreadsheet data for the meal management system of our mess.  
+> If you run the project as-is, the LLM responses will not provide data about your own spreadsheet.  
+> To use your own spreadsheet or customize functionality, please modify the relevant code in the `mcp_server` directory.
 
 ---
 
@@ -40,7 +59,7 @@ MCP is a protocol that enables AI models to interact with external tools and ser
 ## Project Structure
 
 ```
-meal-mcp-bot/
+spreadsheet-mcp-bot/
 │
 ├── interface/         # Frontend interface for user interaction
 ├── mcp_client_api/    # Client API for communicating with MCP server and tools
@@ -49,41 +68,180 @@ meal-mcp-bot/
 
 ---
 
-## Installation & Setup
+## Technologies
 
-### 1. Interface
+### Core Stack
+- **Node.js** - Runtime environment
+- **TypeScript** - Type-safe development
+- **Express.js** - Web framework for API endpoints
+- **React** - Frontend user interface
 
+### AI & ML Integration
+- **Model Context Protocol (MCP)** - Tool-augmented AI interactions
+- **OpenAI API** - GPT model integration
+- **Ollama** - Local LLM execution support
+
+### Development Tools
+- **Yarn** - Package management
+- **dotenv** - Environment configuration
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/spreadsheet-mcp-bot.git
+cd spreadsheet-mcp-bot
+```
+
+### 2. Install Dependencies
+
+#### Frontend Interface
 ```bash
 cd interface
 yarn install
-yarn dev
 ```
-This will start the frontend development server.
 
----
-
-### 2. mcp_client_api
-
+#### MCP Server
 ```bash
-cd mcp_client_api
-cp .env.sample .env
+cd ../mcp_server
 yarn install
-yarn build
 ```
-Configure your `.env` file as needed.
 
----
+#### MCP Client API
+```bash
+cd ../mcp_client_api
+yarn install
+```
 
-### 3. mcp_server
+## Configuration
 
+### Environment Setup
+
+#### MCP Server Configuration
 ```bash
 cd mcp_server
 cp .env.sample .env
-yarn install
+```
+
+Configure your `.env` file:
+```env
+PORT=3002
+NODE_ENV=development
+# Add other configuration variables as needed
+```
+
+#### MCP Client API Configuration
+```bash
+cd mcp_client_api
+cp .env.sample .env
+```
+
+Configure your `.env` file:
+```env
+# Server Configuration
+PORT=3002
+
+# GitHub Integration
+GITHUB_TOKEN=your_github_personal_access_token
+
+# OpenAI Configuration
+OPEN_API_KEY=your_openai_api_key_here
+
+# MCP Server Configuration
+MCP_SERVER_ENDPOINT=http://localhost:3002/mcp
+```
+
+### Generating Required API Keys and Tokens
+
+#### OpenAI API Key (OPEN_API_KEY)
+
+1. **Create an OpenAI Account**
+   - Visit [OpenAI Platform](https://platform.openai.com/)
+   - Sign up or log in to your account
+
+2. **Generate API Key**
+   - Navigate to the [API Keys section](https://platform.openai.com/api-keys)
+   - Click "Create new secret key"
+   - Provide a name for your key (e.g., "Spreadsheet MCP Bot")
+   - Copy the generated key (starts with `sk-proj-` or `sk-`)
+   - **Important**: Save this key securely as it won't be shown again
+
+3. **Add Billing Information**
+   - Go to [Billing settings](https://platform.openai.com/account/billing)
+   - Add a payment method
+   - Set up usage limits if desired
+
+4. **Verify Your Setup**
+   ```bash
+   curl https://api.openai.com/v1/models \
+     -H "Authorization: Bearer YOUR_API_KEY"
+   ```
+
+#### GitHub Personal Access Token (GITHUB_TOKEN)
+
+1. **Access GitHub Token Settings**
+   - Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+   - Or navigate: Profile → Settings → Developer settings → Personal access tokens → Tokens (classic)
+
+2. **Generate New Token**
+   - Click "Generate new token" → "Generate new token (classic)"
+   - Provide a descriptive name (e.g., "Spreadsheet MCP Bot")
+   - Set expiration (recommended: 90 days or custom)
+
+3. **Select Required Scopes**
+   For this project, you'll typically need:
+   - `repo` - Full control of private repositories
+   - `read:user` - Read user profile data
+   - `user:email` - Access user email addresses
+   - `read:org` - Read organization membership (if applicable)
+
+4. **Generate and Copy Token**
+   - Click "Generate token"
+   - Copy the token (starts with `ghp_`)
+   - **Important**: Save this token securely as it won't be shown again
+
+5. **Test Your Token**
+   ```bash
+   curl -H "Authorization: token YOUR_GITHUB_TOKEN" \
+     https://api.github.com/user
+
+
+## Running the project
+
+### Interface
+
+```bash
+yarn dev
+```
+
+### mcp_server
+
+```bash
 yarn build
 ```
-Configure your `.env` file as needed.  
-This will start the MCP server on port 3002 by default.
+
+### mcp_client_api
+We will use different types of models here like llama, gpt etc.
+
+
+* If you want to run with llama model by running on your own machine, then first run the llama model by ollama tool. 
+Follow [https://medium.com/cyberark-engineering/how-to-run-llms-locally-with-ollama-cb00fa55d5de](This) blog to run the model.
+
+After running the model, run the client_api_server:
+
+```
+yarn llama
+```
+
+* Otherwise, if you want to use openai's model like gpt, then: 
+```
+yarn openai
+```
+
+No extra steps needed if you run openai's model!
 
 ---
 
@@ -103,3 +261,4 @@ Contributions are welcome! Please open issues or submit pull requests for improv
 ## License
 
 This project is licensed under the MIT
+
