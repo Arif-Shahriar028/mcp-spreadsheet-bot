@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  devIndicators: false
+   // Disables the dev indicator and error overlay
 };
 
 export default nextConfig;

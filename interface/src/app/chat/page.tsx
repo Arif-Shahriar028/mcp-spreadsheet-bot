@@ -34,7 +34,7 @@ const Chat = () => {
     setMessages((prev) => [...prev, { role: 'bot', content: '' }]);
 
     const eventSource = new EventSource(
-      `http://192.168.0.111:3004/chat?prompt=${encodeURIComponent(
+      `http://localhost:3004/chat?prompt=${encodeURIComponent(
         `${input}. give the response in a markdown format`
       )}`
     );
