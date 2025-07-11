@@ -39,6 +39,9 @@
 > If you run the project as-is, the LLM responses will not provide data about your own spreadsheet.  
 > To use your own spreadsheet or customize functionality, please modify the relevant code in the `mcp_server` directory.
 
+
+![chat example](chat.png)
+
 ---
 
 ## Technologies Used
